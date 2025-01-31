@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Subtle gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            padding: 35px;
+            background: #fff;
+            border-radius: 16px; /* More rounded corners */
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            animation: fadeIn 1s ease; /* Smooth fade-in animation */
+            transition: transform 0.3s ease; /* Smooth hover effect */
+        }
+
+        .container:hover {
+            transform: scale(1.02); /* Slight zoom-in effect */
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.3rem;
+            color: #007bff;
+            letter-spacing: 1px;
+        }
+
+        .total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 25px;
+        }
+
+        .order-summary {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-summary p {
+            margin: 10px 0;
+        }
+
+        .input {
+            width: 100%;
+            padding: 14px;
+            margin-top: 18px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3); /* Button hover effect */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Buy Now Checkout</h1>
+        <!-- HTML to display the total price -->
+        <div class="total">
+            Total Price: $<span id="finalTotalPrice">0</span>
+        </div>
+
+        <form action="order-success.html" method="get">
+            <input class="input" type="text" name="address" placeholder="Delivery Address" required>
+            <select class="input" name="time" required>
+                <option value="" disabled selected>Select Delivery Time</option>
+                <option value="Morning (9am - 12pm)">Morning (9am - 12pm)</option>
+                <option value="Afternoon (12pm - 3pm)">Afternoon (12pm - 3pm)</option>
+                <option value="Evening (3pm - 6pm)">Evening (3pm - 6pm)</option>
+                <option value="Night (6pm - 9pm)">Night (6pm - 9pm)</option>
+            </select>
+            <input class="input" type="text" name="phone" placeholder="Phone Number" required>
+            <input type="hidden" name="totalPrice" id="totalPrice">
+            <button type="submit" class="btn">Complete Checkout</button>
+        </form>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const product = params.get('product');
+        const total = params.get('totalPrice');
+        // Find the element by its ID and set its text content to the total price
+        if (total) {
+            document.getElementById('finalTotalPrice').textContent = total;
+        }
+    </script>
+</body>
+</html>

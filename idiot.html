@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .plan {
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .btn {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Plan</h1>
+        <div class="plan">
+            <h2>Basic Plan</h2>
+            <p>Price: $20 per month</p>
+            <button class="btn" onclick="selectPlan('Basic Plan', '20')">Select Plan</button>
+        </div>
+        <div class="plan">
+            <h2>Premium Plan</h2>
+            <p>Price: $50 per month</p>
+            <button class="btn" onclick="selectPlan('Premium Plan', '50')">Select Plan</button>
+        </div>
+        <div class="plan">
+            <h2>Deluxe Plan</h2>
+            <p>Price: $80 per month</p>
+            <button class="btn" onclick="selectPlan('Deluxe Plan', '80')">Select Plan</button>
+        </div>
+    </div>
+
+    <script>
+        function selectPlan(planName, price) {
+            // Pass selected plan and price to the order page
+            window.location.href = `checkout.html?plan=${encodeURIComponent(planName)}&totalPrice=${encodeURIComponent(price)}`;
+        }
+    </script>
+</body>
+</html>

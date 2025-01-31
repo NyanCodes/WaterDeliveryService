@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+    <style>
+        /* General Reset */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Subtle gradient */
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between buttons */
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 1.2rem; /* Slightly smaller for elegance */
+            padding: 12px 25px; /* Adjust padding for balanced buttons */
+            color: white;
+            background-color: #007bff;
+            border-radius: 8px; /* Smoother corners */
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Subtle button shadow */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Lift effect */
+            box-shadow: 0 6px 15px rgba(0, 86, 179, 0.4); /* More pronounced shadow */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Your Option</h1>
+        <div class="links">
+            <a href="subscription-plans.html">Subscription Plans</a>
+            <a href="buy-now.html">Buy Now</a>
+        </div>
+    </div>
+</body>
+</html>

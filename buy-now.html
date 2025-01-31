@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Now</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .item-info {
+            flex-grow: 1;
+            margin-left: 10px;
+            text-align: left;
+        }
+
+        .item-info span {
+            display: block;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quantity button:hover {
+            background-color: #0056b3;
+        }
+
+        .quantity input {
+            width: 50px;
+            text-align: center;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .total {
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Buy Now</h1>
+        <div id="product-list">
+            <!-- Products will be added dynamically -->
+        </div>
+        <div class="total">
+            Total: $<span id="total">0</span>
+        </div>
+        <button class="btn" onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        const products = [
+            { id: 'item1', name: 'Natural Water', price: 5, image: 'natural.jpg' },
+            { id: 'item2', name: 'Distilled Water', price: 7, image: 'distilled.webp' },
+            { id: 'item4', name: 'Sparkling Water', price: 12, image: 'sp_wtr.jpg' }, // New product
+            { id: 'item5', name: 'Flavored Water', price: 15, image: 'flavored.jpg' }  // New product
+        ];
+
+        const prices = {};
+        const productList = document.getElementById('product-list');
+
+        // Dynamically generate product elements
+        products.forEach(product => {
+            prices[product.id] = product.price;
+
+            const productElement = document.createElement('div');
+            productElement.classList.add('item');
+            productElement.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div class="item-info">
+                    <span>${product.name}</span>
+                    <span>$${product.price}</span>
+                </div>
+                <div class="quantity">
+                    <button onclick="changeQuantity('${product.id}', -1)">-</button>
+                    <input id="${product.id}" type="number" value="0" min="0" readonly>
+                    <button onclick="changeQuantity('${product.id}', 1)">+</button>
+                </div>
+            `;
+            productList.appendChild(productElement);
+        });
+
+        function changeQuantity(itemId, change) {
+            const input = document.getElementById(itemId);
+            const currentValue = parseInt(input.value);
+            const newValue = Math.max(0, currentValue + change); // Prevent negative values
+            input.value = newValue;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = 0;
+            for (const [itemId, price] of Object.entries(prices)) {
+                const quantity = parseInt(document.getElementById(itemId).value);
+                total += quantity * price;
+            }
+            document.getElementById('total').textContent = total;
+        }
+
+        function checkout() {
+            const params = new URLSearchParams();
+            for (const itemId of Object.keys(prices)) {
+                const quantity = document.getElementById(itemId).value;
+                if (quantity > 0) {
+                    params.append(itemId, quantity);
+                }
+            }
+            const totalPrice = document.getElementById('total').textContent; // Get the updated total price
+            params.append('totalPrice', totalPrice); // Add total price to the URL
+
+            window.location.href = `buy-now-checkout.html?${params.toString()}`;
+        }
+    </script>
+</body>
+</html>

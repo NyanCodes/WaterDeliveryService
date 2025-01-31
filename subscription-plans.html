@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans</title>
+    <style>
+        /* Reset & Body Styling */
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Subtle gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Smooth shadow */
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            animation: fadeIn 1s ease; /* Fade-in animation */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.4rem;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .option {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            display: block;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #f0f8ff;
+            border-color: #007bff;
+        }
+
+        .option input {
+            margin-right: 10px;
+            transform: scale(1.2);
+            transition: transform 0.2s ease;
+        }
+
+        .option input:checked {
+            background-color: #007bff;
+            transform: scale(1.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Adding a transition effect for the form */
+        form {
+            transition: opacity 0.3s ease;
+        }
+
+        /* When submitting */
+        form:invalid {
+            opacity: 0.5;
+        }
+
+        /* Button Focus and Hover Effects */
+        .btn:focus {
+            outline: none;
+            box-shadow: 0 0 5px #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Subscription Plans</h1>
+        <form action="subscription-checkout.html" method="get">
+            <label class="option">
+                <input type="radio" name="plan" value="Weekly - $25" required> Weekly - $25
+            </label>
+            <label class="option">
+                <input type="radio" name="plan" value="Monthly - $100"> Monthly - $100
+            </label>
+            <label class="option">
+                <input type="radio" name="plan" value="Yearly - $300"> Yearly - $300
+            </label>
+            <button type="submit" class="btn">Subscribe</button>
+        </form>
+    </div>
+
+    <script>
+        // Make sure the selected plan and its price are passed to the next page
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function (e) {
+            const selectedPlan = document.querySelector('input[name="plan"]:checked');
+            if (selectedPlan) {
+                const planText = selectedPlan.value; // Example: "Weekly - $25"
+                const price = planText.split(" - $")[1]; // Extract the price part
+                
+                // Add the selected plan and price as URL parameters
+                const actionUrl = form.action + `?plan=${encodeURIComponent(planText)}&totalPrice=${encodeURIComponent(price)}`;
+                form.action = actionUrl;
+            }
+        });
+    </script>
+</body>
+</html>
