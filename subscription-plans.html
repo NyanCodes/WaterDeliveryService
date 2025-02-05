@@ -5,140 +5,214 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscription Plans</title>
     <style>
-        /* Reset & Body Styling */
-        body {
-            margin: 0;
-            font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Subtle gradient */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-        .container {
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Smooth shadow */
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-            animation: fadeIn 1s ease; /* Fade-in animation */
-        }
+    .container {
+        width: 100%;
+        max-width: 500px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2.4rem;
-            color: #007bff;
-            font-weight: bold;
-        }
+    h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #007bff;
+    }
 
-        .option {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            display: block;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
+    .item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
 
-        .option:hover {
-            background-color: #f0f8ff;
-            border-color: #007bff;
-        }
+    .item img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
 
-        .option input {
-            margin-right: 10px;
-            transform: scale(1.2);
-            transition: transform 0.2s ease;
-        }
+    .item-info {
+        flex-grow: 1;
+        margin-left: 10px;
+        text-align: left;
+    }
 
-        .option input:checked {
-            background-color: #007bff;
-            transform: scale(1.2);
-        }
+    .item-info span {
+        display: block;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+    }
 
-        .btn {
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        }
+    .quantity {
+        display: flex;
+        align-items: center;
+    }
 
-        .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
-        }
+    .quantity button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 5px;
+        margin: 0 5px;
+        transition: background-color 0.3s ease;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .quantity button:hover {
+        background-color: #0056b3;
+    }
 
-        /* Adding a transition effect for the form */
-        form {
-            transition: opacity 0.3s ease;
-        }
+    .quantity input {
+        width: 50px;
+        text-align: center;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-        /* When submitting */
-        form:invalid {
-            opacity: 0.5;
-        }
+    .total {
+        text-align: center;
+        font-size: 1.5rem;
+        margin: 20px 0;
+    }
 
-        /* Button Focus and Hover Effects */
-        .btn:focus {
-            outline: none;
-            box-shadow: 0 0 5px #007bff;
-        }
+    .plan-buttons button {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .plan-buttons button.active {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Subscription Plans</h1>
-        <form action="subscription-checkout.html" method="get">
-            <label class="option">
-                <input type="radio" name="plan" value="Weekly - $25" required> Weekly - $25
-            </label>
-            <label class="option">
-                <input type="radio" name="plan" value="Monthly - $100"> Monthly - $100
-            </label>
-            <label class="option">
-                <input type="radio" name="plan" value="Yearly - $300"> Yearly - $300
-            </label>
-            <button type="submit" class="btn">Subscribe</button>
-        </form>
+        <h1>Choose Your Plan</h1>
+        <div id="product-list"></div>
+        <div class="total">$<span id="total">0</span> for each delivery </div>
+        <div class="plan-buttons">
+            <button onclick="selectPlan(this, 'Weekly')">Weekly</button>
+            <button onclick="selectPlan(this, 'Biweekly')">Biweekly</button>
+            <button onclick="selectPlan(this, 'Monthly')" class="active">Monthly</button>
+        </div>
+        <button class="btn" onclick="checkout()">Proceed to Checkout</button>
     </div>
 
     <script>
-        // Make sure the selected plan and its price are passed to the next page
-        const form = document.querySelector("form");
+        const products = [
+            { id: 'bottle1', name: 'Small Bottle', price: 10, image: 'small.jpg' },
+            { id: 'bottle2', name: 'Medium Bottle', price: 15, image: 'medium.jpg' },
+            { id: 'bottle3', name: 'Large Bottle', price: 20, image: 'large.jpg' }
+        ];
 
-        form.addEventListener("submit", function (e) {
-            const selectedPlan = document.querySelector('input[name="plan"]:checked');
-            if (selectedPlan) {
-                const planText = selectedPlan.value; // Example: "Weekly - $25"
-                const price = planText.split(" - $")[1]; // Extract the price part
-                
-                // Add the selected plan and price as URL parameters
-                const actionUrl = form.action + `?plan=${encodeURIComponent(planText)}&totalPrice=${encodeURIComponent(price)}`;
-                form.action = actionUrl;
-            }
+        const productList = document.getElementById('product-list');
+        const prices = {};
+        let planType = 'Monthly'; // Default plan type
+
+        products.forEach(product => {
+            prices[product.id] = product.price;
+
+            const productElement = document.createElement('div');
+            productElement.classList.add('item');
+            productElement.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div class="item-info">
+                    <span>${product.name}</span>
+                    <span>$${product.price}</span>
+                </div>
+                <div class="quantity">
+                    <button onclick="changeQuantity('${product.id}', -1)">-</button>
+                    <input id="${product.id}" type="number" value="0" min="0" readonly>
+                    <button onclick="changeQuantity('${product.id}', 1)">+</button>
+                </div>
+            `;
+            productList.appendChild(productElement);
         });
+
+        function changeQuantity(itemId, change) {
+            const input = document.getElementById(itemId);
+            const newValue = Math.max(0, parseInt(input.value) + change);
+            input.value = newValue;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = 0;
+            let planDescription = '';
+            let selectedProducts = [];
+
+            for (const [itemId, price] of Object.entries(prices)) {
+                const quantity = parseInt(document.getElementById(itemId).value);
+                if (quantity > 0) {
+                    total += quantity * price;
+                    const product = products.find(p => p.id === itemId);
+                    selectedProducts.push(`${quantity} x ${product.name}`);
+                }
+            }
+
+            planDescription = selectedProducts.join(', ');
+            document.getElementById('total').textContent = total;
+            return { total, planDescription };
+        }
+
+        function selectPlan(button, type) {
+            document.querySelectorAll('.plan-buttons button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            planType = type; // Update the plan type
+        }
+
+        function checkout() {
+            const { total, planDescription } = updateTotal();
+            const checkoutUrl = `subscription-checkout.html?plan=${encodeURIComponent(planDescription)}&planType=${encodeURIComponent(planType)}&totalPrice=${total}`;
+            window.location.href = checkoutUrl;
+        }
     </script>
 </body>
 </html>

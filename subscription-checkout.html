@@ -5,104 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <style>
-        /* Reset & Body Styling */
-        body {
-            font-family: 'Roboto', Arial, sans-serif; /* Modern font */
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Subtle gradient */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+        
+    /* Reset & Body Styling */
+    body {
+        font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Subtle gradient */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-        .container {
-            padding: 35px;
-            background: white;
-            border-radius: 16px; /* Slightly more rounded */
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-            animation: fadeIn 1s ease; /* Smooth fade-in animation */
-            transition: transform 0.3s ease; /* Smooth hover effect */
-        }
+    .container {
+        padding: 35px;
+        background: white;
+        border-radius: 16px; /* Slightly more rounded */
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+        animation: fadeIn 1s ease; /* Smooth fade-in animation */
+        transition: transform 0.3s ease; /* Smooth hover effect */
+    }
 
-        .container:hover {
-            transform: scale(1.02); /* Slight zoom-in effect */
-        }
+    .container:hover {
+        transform: scale(1.02); /* Slight zoom-in effect */
+    }
 
-        h1 {
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            color: #007bff;
-            letter-spacing: 1px;
-        }
+    h1 {
+        margin-bottom: 30px;
+        font-size: 2.2rem;
+        color: #007bff;
+        letter-spacing: 1px;
+    }
 
-        .order-summary {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            text-align: left;
-            background: #f9f9f9; /* Light background for clarity */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-            margin-bottom: 20px;
-        }
+    .order-summary {
+        margin-bottom: 25px;
+        font-size: 1.1rem;
+        text-align: left;
+        background: #f9f9f9; /* Light background for clarity */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 20px;
+    }
 
-        .order-summary p {
-            margin: 10px 0;
-        }
+    .order-summary p {
+        margin: 10px 0;
+    }
 
-        .input {
-            width: 100%;
-            padding: 14px;
-            margin-top: 18px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            font-size: 1.1rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
+    .input {
+        width: 100%;
+        padding: 14px;
+        margin-top: 18px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        font-size: 1.1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .input:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
-            outline: none;
-        }
+    .input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        outline: none;
+    }
 
-        select.input {
-            background-color: #f1f1f1;
-        }
+    select.input {
+        background-color: #f1f1f1;
+    }
 
-        .btn {
-            width: 100%;
-            padding: 14px;
-            margin-top: 25px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        }
+    .btn {
+        width: 100%;
+        padding: 14px;
+        margin-top: 25px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
 
-        .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3); /* Button hover effect */
-        }
+    .btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3); /* Button hover effect */
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-15px);
         }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -110,6 +112,8 @@
         <h1>Subscription Checkout</h1>
         <div class="order-summary">
             <p><strong>Selected Plan:</strong> <span id="plan"></span></p>
+            <p><strong>Plan Type:</strong> <span id="planType"></span></p> <!-- Added Plan Type -->
+            <p><strong>Price:</strong> $<span id="price"></span> for each delivery</p>
         </div>
         <form id="checkoutForm" action="order-success.html" method="get">
             <input class="input" type="text" name="address" placeholder="Delivery Address" required>
@@ -131,10 +135,13 @@
         // Extract parameters from the URL
         const params = new URLSearchParams(window.location.search);
         const plan = params.get('plan');
+        const planType = params.get('planType');
         const price = params.get('totalPrice');
 
-        // Populate the plan and price fields dynamically
+        // Populate the plan, plan type, and price fields dynamically
         document.getElementById('plan').textContent = plan || 'No plan selected';
+        document.getElementById('planType').textContent = planType || 'No plan type selected'; // Display the plan type
+        document.getElementById('price').textContent = price || 0;
         document.getElementById('hiddenPrice').value = price || 0;
 
         // Make sure the totalPrice is appended to the form action
