@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Login and Shop</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
     <div id="login" class="container">
         <h1>Water Delivery Service</h1>
-        <form action="subscription.html">
+        <!-- Form that sends data with POST to subscription.html -->
+        <form id="loginForm" method="POST" action="subscription.html">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -22,15 +22,27 @@
             <button type="submit" class="btn">Login</button>
         </form>
     </div>
+
+    <script>
+        // Handle form submission with JavaScript to prevent data in the URL
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            // Get the username and password from the form fields
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Perform validation (this is just a basic example)
+            if (!username || !password) {
+                alert('Please fill in both fields.');
+                return;
+            }
+
+            // You can add logic to send the data to the server here via an API if needed
+
+            // If everything is valid, redirect to the subscription page
+            window.location.href = 'subscription.html';
+        });
+    </script>
 </body>
 </html>
-<script>
-    function submitOrder() {
-        // You can add more logic here for order processing if needed
-        
-        // Redirect to the Order Success page
-        window.location.href = 'order-success.html';
-    }
-</script>
-
-
