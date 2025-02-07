@@ -136,7 +136,7 @@
     <div class="container">
         <h1>Choose Your Plan</h1>
         <div id="product-list"></div>
-        <div class="total">$<span id="total">0</span> for each delivery </div>
+        <div class="total"><span id="total">0</span> Baht for each delivery </div>
         <div class="plan-buttons">
             <button onclick="selectPlan(this, 'Weekly')">Weekly</button>
             <button onclick="selectPlan(this, 'Biweekly')">Biweekly</button>
@@ -165,7 +165,7 @@
                 <img src="${product.image}" alt="${product.name}">
                 <div class="item-info">
                     <span>${product.name}</span>
-                    <span>$${product.price}</span>
+                    <span>${product.price} Baht</span>
                 </div>
                 <div class="quantity">
                     <button onclick="changeQuantity('${product.id}', -1)">-</button>

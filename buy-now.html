@@ -122,7 +122,7 @@
             <!-- Products will be added dynamically -->
         </div>
         <div class="total">
-            Total: $<span id="total">0</span>
+            Total: <span id="total">0</span><span> Baht</span>
         </div>
         <button class="btn" onclick="checkout()">Checkout</button>
     </div>
@@ -148,7 +148,7 @@
                 <img src="${product.image}" alt="${product.name}">
                 <div class="item-info">
                     <span>${product.name}</span>
-                    <span>$${product.price}</span>
+                    <span>${product.price} Baht</span>
                 </div>
                 <div class="quantity">
                     <button onclick="changeQuantity('${product.id}', -1)">-</button>

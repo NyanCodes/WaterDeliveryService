@@ -87,11 +87,12 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container">  <!-- Added container div -->
         <h1>Order Successful!</h1>
         <div class="order-summary">
             <p><strong>Phone Number:</strong> <span id="phoneNumber"></span></p>
             <p><strong>Delivery Address:</strong> <span id="address"></span></p>
+            <p><strong>Delivery Date:</strong> <span id="deliveryDate"></span></p>
             <p><strong>Delivery Time:</strong> <span id="deliveryTime"></span></p>
         </div>
         <button class="btn" onclick="window.location.href = 'index.html'">Go Back Home</button>
@@ -101,11 +102,14 @@
         const params = new URLSearchParams(window.location.search);
         document.getElementById('phoneNumber').textContent = params.get('phone');
         document.getElementById('address').textContent = params.get('address');
+        document.getElementById('deliveryDate').textContent = params.get('date');  
         document.getElementById('deliveryTime').textContent = params.get('time');
+
         const total = params.get('totalPrice');
         if (total) {
             document.getElementById('finalTotalPrice').textContent = total;
         }
     </script>
 </body>
+
 </html>

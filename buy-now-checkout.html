@@ -111,11 +111,14 @@
         <h1>Buy Now Checkout</h1>
         <!-- HTML to display the total price -->
         <div class="total">
-            Total Price: $<span id="finalTotalPrice">0</span>
+            Total Price: <span id="finalTotalPrice">0</span><span> Baht</span>
         </div>
 
         <form action="order-success.html" method="get">
             <input class="input" type="text" name="address" placeholder="Delivery Address" required>
+        
+            <input class="input" type="date" name="date" required> <!-- Delivery Date Input -->
+        
             <select class="input" name="time" required>
                 <option value="" disabled selected>Select Delivery Time</option>
                 <option value="Morning (9am - 12pm)">Morning (9am - 12pm)</option>
@@ -123,10 +126,13 @@
                 <option value="Evening (3pm - 6pm)">Evening (3pm - 6pm)</option>
                 <option value="Night (6pm - 9pm)">Night (6pm - 9pm)</option>
             </select>
+        
             <input class="input" type="text" name="phone" placeholder="Phone Number" required>
             <input type="hidden" name="totalPrice" id="totalPrice">
+            
             <button type="submit" class="btn">Complete Checkout</button>
         </form>
+        
     </div>
 
     <script>
