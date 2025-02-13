@@ -68,6 +68,13 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
         }
+        .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        }
+
 
         .btn:hover {
             background-color: #0056b3;
@@ -94,8 +101,13 @@
             <p><strong>Delivery Address:</strong> <span id="address"></span></p>
             <p><strong>Delivery Date:</strong> <span id="deliveryDate"></span></p>
             <p><strong>Delivery Time:</strong> <span id="deliveryTime"></span></p>
+            <p><strong>Payment Method:</strong> <span id="paymentMethod"></span></p>
         </div>
-        <button class="btn" onclick="window.location.href = 'index.html'">Go Back Home</button>
+        <div class="btn-container">
+            <button class="btn" onclick="window.location.href = 'index.html'">Go Back Home</button>
+            <button class="btn" onclick="downloadOrderSummary()">Download Order Summary</button>
+        </div>
+        
     </div>
 
     <script>
@@ -104,11 +116,60 @@
         document.getElementById('address').textContent = params.get('address');
         document.getElementById('deliveryDate').textContent = params.get('date');  
         document.getElementById('deliveryTime').textContent = params.get('time');
-
+        document.getElementById('paymentMethod').textContent = params.get('paymentMethod') || 'Not provided';
         const total = params.get('totalPrice');
         if (total) {
             document.getElementById('finalTotalPrice').textContent = total;
         }
+        function downloadOrderSummary() {
+    const params = new URLSearchParams(window.location.search);
+    const totalPrice = params.get('totalPrice') || 'N/A';
+    const address = params.get('address') || 'N/A';
+    const date = params.get('date') || 'N/A';
+    const time = params.get('time') || 'N/A';
+    const phone = params.get('phone') || 'N/A';
+    const paymentMethod = params.get('paymentMethod') || 'N/A';
+    
+    const plan = params.get('plan') || 'N/A';
+    const planType = params.get('planType') || 'N/A';
+    // Determine if it's a Subscription Plan or a One-time Order
+    let orderDetails = '';
+    if (params.has('plan')) {
+        // Subscription Order
+        const plan = params.get('plan');
+        const planType = params.get('planType');
+        orderDetails = `Plan: ${planType}\nPlan: ${plan}`;
+    }
+     else if (params.has('items')) {
+        // One-time Buy Now Order
+        const items = params.get('items');
+        orderDetails = `${items}`;
+    } else {
+        orderDetails = "No items selected.";
+    }
+
+    // Create the order summary text
+    const orderSummary = `
+         Order Summary
+    -------------
+    Order Details: ${orderDetails}
+    Delivery Address: ${address}
+    Delivery Date: ${date}
+    Delivery Time: ${time}
+    Phone Number: ${phone}
+    Payment Method: ${paymentMethod}
+    Total Price: ${totalPrice} Baht
+    `.trim();
+
+    // Create and download the .txt file
+    const blob = new Blob([orderSummary], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Order_Summary.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
     </script>
 </body>
 

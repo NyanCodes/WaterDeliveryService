@@ -177,18 +177,29 @@
         }
 
         function checkout() {
-            const params = new URLSearchParams();
-            for (const itemId of Object.keys(prices)) {
-                const quantity = document.getElementById(itemId).value;
-                if (quantity > 0) {
-                    params.append(itemId, quantity);
+        const params = new URLSearchParams();
+        let selectedItems = [];
+
+        for (const itemId of Object.keys(prices)) {
+            const quantity = parseInt(document.getElementById(itemId).value);
+            if (quantity > 0) {
+                const product = products.find(p => p.id === itemId);
+                selectedItems.push(`${quantity} x ${product.name}`);
                 }
             }
-            const totalPrice = document.getElementById('total').textContent; // Get the updated total price
-            params.append('totalPrice', totalPrice); // Add total price to the URL
+            
+        if (selectedItems.length === 0) {
+            alert("Please select at least one item.");
+            return;
+            }
 
-            window.location.href = `buy-now-checkout.html?${params.toString()}`;
-        }
+        params.append("items", selectedItems.join(", "));
+        const totalPrice = document.getElementById("total").textContent;
+        params.append("totalPrice", totalPrice);
+
+        window.location.href = `buy-now-checkout.html?${params.toString()}`;
+        }   
+
     </script>
 </body>
 </html>

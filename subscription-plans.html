@@ -216,14 +216,14 @@
             { id: 'bottle2', name: 'Medium Bottle', price: 15, image: 'medium.jpg' },
             { id: 'bottle3', name: 'Large Bottle', price: 20, image: 'large.jpg' }
         ];
-
+    
         const productList = document.getElementById('product-list');
         const prices = {};
         let planType = 'Monthly'; // Default plan type
-
+    
         products.forEach(product => {
             prices[product.id] = product.price;
-
+    
             const productElement = document.createElement('div');
             productElement.classList.add('item');
             productElement.innerHTML = `
@@ -240,19 +240,19 @@
             `;
             productList.appendChild(productElement);
         });
-
+    
         function changeQuantity(itemId, change) {
             const input = document.getElementById(itemId);
             const newValue = Math.max(0, parseInt(input.value) + change);
             input.value = newValue;
             updateTotal();
         }
-
+    
         function updateTotal() {
             let total = 0;
             let planDescription = '';
             let selectedProducts = [];
-
+    
             for (const [itemId, price] of Object.entries(prices)) {
                 const quantity = parseInt(document.getElementById(itemId).value);
                 if (quantity > 0) {
@@ -261,20 +261,24 @@
                     selectedProducts.push(`${quantity} x ${product.name}`);
                 }
             }
-
+    
             planDescription = selectedProducts.join(', ');
             document.getElementById('total').textContent = total;
             return { total, planDescription };
         }
-
+    
         function selectPlan(button, type) {
             document.querySelectorAll('.plan-buttons button').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             planType = type; // Update the plan type
         }
-
+    
         function checkout() {
             const { total, planDescription } = updateTotal();
+            if (total === 0) {
+                alert("No items selected! Please select at least one item.");
+                return;
+            }
             const checkoutUrl = `subscription-checkout.html?plan=${encodeURIComponent(planDescription)}&planType=${encodeURIComponent(planType)}&totalPrice=${total}`;
             window.location.href = checkoutUrl;
         }

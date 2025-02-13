@@ -17,9 +17,9 @@
 
         .container {
             padding: 35px;
-            background: white;
+            background: #fff;
             border-radius: 16px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 450px;
             text-align: center;
@@ -33,20 +33,26 @@
 
         h1 {
             margin-bottom: 30px;
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             color: #007bff;
             letter-spacing: 1px;
         }
 
-        .order-summary {
+        .total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #007bff;
             margin-bottom: 25px;
+        }
+
+        .order-summary {
+            margin-bottom: 20px;
             font-size: 1.1rem;
             text-align: left;
             background: #f9f9f9;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
         }
 
         .input {
@@ -68,11 +74,11 @@
         .btn {
             width: 100%;
             padding: 14px;
-            margin-top: 25px;
+            margin-top: 30px;
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1.2rem;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
@@ -99,14 +105,14 @@
 <body>
     <div class="container">
         <h1>Subscription Checkout</h1>
-        <div class="order-summary">
-            <p><strong>Selected Plan:</strong> <span id="plan"></span></p>
-            <p><strong>Plan Type:</strong> <span id="planType"></span></p>
-            <p><strong>Price:</strong> <span id="price"></span> Baht for each delivery</p>
+        <div class="total">
+            Total Price: <span id="finalTotalPrice">0</span><span> Baht</span>
         </div>
+
         <form id="checkoutForm" action="order-success.html" method="get">
             <input class="input" type="text" name="address" placeholder="Delivery Address" required>
             <input class="input" type="date" name="date" required>
+        
             <select class="input" name="time" required>
                 <option value="" disabled selected>Select Delivery Time</option>
                 <option value="Morning (9am - 12pm)">Morning (9am - 12pm)</option>
@@ -114,30 +120,63 @@
                 <option value="Evening (3pm - 6pm)">Evening (3pm - 6pm)</option>
                 <option value="Night (6pm - 9pm)">Night (6pm - 9pm)</option>
             </select>
+        
             <input class="input" type="text" name="phone" placeholder="Phone Number" required>
-            <input type="hidden" name="totalPrice" id="hiddenPrice">
+        
+            <select class="input" name="paymentMethod" id="paymentMethod" required>
+                <option value="" disabled selected>Select Payment Method</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+            </select>
+        
+            <!-- Hidden Credit Card Details -->
+            <div id="cardDetails" style="display: none;">
+                <input class="input" type="text" name="cardNumber" placeholder="Card Number">
+                <input class="input" type="text" name="cardHolder" placeholder="Cardholder Name">
+                <input class="input" type="text" name="expiryDate" placeholder="Expiry Date (MM/YY)">
+                <input class="input" type="text" name="cvv" placeholder="CVV">
+            </div>
+        
+            <input type="hidden" name="totalPrice" id="totalPrice">
+            <input type="hidden" name="plan" id="plan">
+            <input type="hidden" name="planType" id="planType">    
+        
             <button type="submit" class="btn">Complete Checkout</button>
-        </form>
+        </form>        
     </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const plan = params.get('plan');
-        const planType = params.get('planType');
-        const price = params.get('totalPrice');
-
-        document.getElementById('plan').textContent = plan || 'No plan selected';
-        document.getElementById('planType').textContent = planType || 'No plan type selected';
-        document.getElementById('price').textContent = price || 0;
-        document.getElementById('hiddenPrice').value = price || 0;
-
-        const form = document.getElementById('checkoutForm');
-        form.addEventListener('submit', function (e) {
-            const price = document.getElementById('hiddenPrice').value;
-            if (price) {
-                form.action = `${form.action}?totalPrice=${encodeURIComponent(price)}`;
+        document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);
+            const total = params.get('totalPrice');
+            const plan = params.get('plan') || 'No items selected'; // Fix empty plan issue
+            const planType = params.get('planType') || 'No plan type selected';
+            if (total) {
+                document.getElementById('finalTotalPrice').textContent = total;
+                document.getElementById('totalPrice').value = total;
             }
+            document.getElementById('plan').value = plan;
+            document.getElementById('planType').value = planType;
+    
+            // Handle Payment Method Selection
+            const paymentMethod = document.getElementById('paymentMethod');
+            const cardDetails = document.getElementById('cardDetails');
+    
+            paymentMethod.addEventListener('change', function () {
+                if (this.value === 'Credit Card') {
+                    cardDetails.style.display = 'block';
+                    cardDetails.querySelectorAll("input").forEach(input => input.required = true);
+                } else {
+                    cardDetails.style.display = 'none';
+                    cardDetails.querySelectorAll("input").forEach(input => input.required = false);
+                }
+            });
         });
+        if (plan === 'No items selected' || totalPrice == 0) {
+        alert("No items selected! Returning to selection page.");
+        window.location.href = "plans.html"; // Redirect back to the selection page
+        }
     </script>
+    
 </body>
 </html>
